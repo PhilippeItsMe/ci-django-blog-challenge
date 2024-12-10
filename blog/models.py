@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 STATUS = ((0, "Draft"), (1, "Published"))
+APPROVED = ((0, "Refused"), (1, "Approved"))
 
 # Create your models here.
 class Post(models.Model):
@@ -16,4 +17,14 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
 
-
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name="comment_done_on"
+        )
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="comment_done_by"
+        )
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+  
