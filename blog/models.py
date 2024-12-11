@@ -16,6 +16,11 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
+  
+    class Meta: # Order by creation date, most recent first and then per author, to always put at the end of the class
+        ordering = ["-created_on", "author"]
+    def __str__(self):# To change post name in the post list, adds the phrase bellow
+        return f"The title of this post is {self.content} written by {self.author}"
 
 class Comment(models.Model):
     post = models.ForeignKey(
@@ -27,4 +32,9 @@ class Comment(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+    class Meta: # Order by creation date, oldest first and then per author, to always put at the end of the class
+        ordering = ["created_on"]
+    def __str__(self):# To change comment name in comment list, adds the phrase bellow
+        return f"Comment {self.content} by {self.author}"
+
   
