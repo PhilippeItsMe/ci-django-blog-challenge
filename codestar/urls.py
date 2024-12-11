@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [
+#are general url, if a name is added in the app/urls.py, the url will be /blog/posts ((blog in this page, and posts in the app page))
+urlpatterns = [ 
+    path("", include("blog.urls"), name="blog-urls"), #add default url
     path('admin/', admin.site.urls),
 ]
