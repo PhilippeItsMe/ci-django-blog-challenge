@@ -20,5 +20,6 @@ from django.urls import path, include
 #are general url, if a name is added in the app/urls.py, the url will be /blog/posts ((blog in this page, and posts in the app page))
 urlpatterns = [ 
     path("", include("blog.urls"), name="blog-urls"), #add default url
+    path('summernote/', include('django_summernote.urls')),
     path('admin/', admin.site.urls),
 ]
